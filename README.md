@@ -1,1 +1,20 @@
-# High-Speed-Aquisition-Scanner-and-a-3D-Display-System
+# A High Speed Aquisition Scanner and a 3d-Display system using Ultrasonic Echo data
+This project is aimed at employing the technique of using sound waves to penetrate or detect an object. We have used Ultrasonic sensor modules that can be easily connected to a microcontroller directly for usage. We created an array using these sensor modules and complemented it with a custom-made microcontroller for data processing and then using that data to reconstruct the image in a Computer using a software. The results we achieved were very promising as we were able to obtain 3-D output with good resolutions which can be further improved in future by increasing the frequency of Ultrasonic sensor modules to 1-2 Megahertz.
+# Srial Communication Code
+•	This code segment helps the imaging terminal to interact with the proposed data acquisition system to gather input data which is then transferred to the image reconstruction algorithm to further process the image. 
+•	The interaction is performed by communicating with the data acquisition system using a serial connection. The serial connection being used follows the Universal Asynchronous Receiver Transmitter (UART).
+•	Both the sides perform a virtual handshaking that help them to identify each other. The handshaking can also be implemented to using different kinds of passwords that can be authenticated by the terminals to enhance security.
+•	Following the handshaking procedure, the data is transferred in the form of blocks. Each block representing a frame/array of raw input data acquired from the sensors.
+•	Then each received block, represented as an array, is forwarded to the image reconstruction code.
+•	As an initialising procedure, the code creates a new Serial object named as ‘atmega’ being connected to the physical COM port of our imaging terminal.
+•	The port is then opened which indicated to other programs that the particular port is already in use by the imaging terminal. After completion of data transfer, the port should always be released/closed.
+•	Then the properties of the recently created ‘atmega’ object are displayed on the screen. The properties of the serial object can be COM port number, name of object, baud rate being used, different protocol parameters like even/odd/no parity, 7bit/8bit data.
+# Image Reconstruction Code
+ The following code is divided into multiple segments, each playing a different role. 
+•	The first segment takes raw input data in the form of a 2D vector and stores it in a variable named as ‘d’.
+•	The second segment creates a new 2D matrix herein referred to as ‘canvas’ having the size of the required output image that can be calculated using the dimensions of the input data along with the “res” value at which the image reconstruction is working.
+•	 The third segment places the raw input data in newly created ‘canvas’ by placing consecutive samples sparsely having blank spaces in between them. The number of blank spaces between two consecutive samples is configured using the same ‘res’ variable that defines the resolution at which the image reconstruction code is working.
+•	The fourth segment of the code is an iterative algorithm that fills up the blank spaces (created previously) between consecutive samples. The data to be placed in these blank spaces can be calculated using mathematical models of straight lines, curved lines, planes and solids. However, here, we have used the model of straight lines. Hence this segment traverses the ‘canvas’ row-wise and fills up the blank spaces in each row by placing collinear coordinates respective to the consecutive samples.
+•	The fifth segment works the same way as the fourth segment. The only difference is that it traverses the ‘canvas’ column-wise filling the blank spaces. At the end of this algorithm, the canvas array is completely filled with values that represent the output image.
+•	The sixth segment displays the generated output data in the form of a 3D plot. The position of data in the ‘canvas’ represents the x-y coordinate and the numeric value of the data represents the z coordinate. Hence, as a result, a high-resolution image of the 3D plot is displayed on the monitor.
+
