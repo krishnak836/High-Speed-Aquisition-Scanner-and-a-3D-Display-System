@@ -1,0 +1,86 @@
+%Image Reconstruction code
+clc;
+	close all;
+	clear all;
+	%First segment
+	%Take input data and display it
+	d=input('Enter values of matrix: \n');
+	disp(d);
+	s=size(d);
+	fprintf('\n Dimensions of your data: %drows %dcolumns\n \n',s(1),s(2));
+	
+
+	%Second segment
+	%Blank points
+	res=10;
+	disp(res);
+	
+
+	%Creating a blank canvas array for image storage
+	disp(s(1)+res*(s(1)-1));
+	disp(s(2)+res*(s(2)-1));
+	z=zeros(s(1)+res*(s(1)-1) ,s(2)+res*(s(2)-1));
+	% disp(z);
+	
+
+	%Third segment
+	%Saving raw acquired data into blank canvas array
+	m = 1;
+	n = 1;
+	for ( i = 1 : s(1) )
+	   for ( j = 1 : s(2) )
+	        z(m,n) = d(i,j);
+	        n = n + res + 1;
+	   end
+	   n=1;
+	   m = m + res + 1;
+	end
+	
+
+	%Display message
+	fprintf('\n Blank space created \n');
+	% disp(z);    
+	
+
+	%Fourth Segment
+	%Reconstruction code working row-wise
+	 for ( i = 1 : s(1))
+	     m=1;
+	    roff = (i-1)*res + i;
+	    for ( j = 1 : (s(2) - 1) )
+	        ip = z(roff,m);
+	        m = m + res + 1;
+	        fp = z(roff,m);
+	        slo=(fp - ip)/(res + 1);
+	        coff=(j-1)*res+j;
+	        for ( k = 1 : res )
+	            val= slo*k + ip;
+	            z(roff ,k+coff)=val;
+	        end
+	 end
+	% disp(z);
+	
+
+	%Fifth segment
+	%Reconstruction code working column-wise
+	zsize=size(z);
+	 for ( i = 1 : zsize(2) )
+	     m=1;
+	    for ( j = 1 : (s(1) - 1) )
+	        ip = z(m,i);
+	        m = m + res + 1;
+	        fp = z(m,i);
+	        slo=(fp - ip)/(res + 1);
+	        roff=(j-1)*res+j;
+	        for ( k = 1 : res )
+	            val= slo*k + ip;
+	            z(k + roff ,i)=val;
+	        end
+	 end
+	 
+	%Sixth segment
+	% disp(z);
+	surfl(z)
+	colormap(pink) % change color map
+	shading interp    % interpolate colors across lines and faces
+
