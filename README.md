@@ -1,6 +1,6 @@
 # A High Speed Aquisition Scanner and a 3d-Display system using Ultrasonic Echo data
 This project is aimed at employing the technique of using sound waves to penetrate or detect an object. We have used Ultrasonic sensor modules that can be easily connected to a microcontroller directly for usage. We created an array using these sensor modules and complemented it with a custom-made microcontroller for data processing and then using that data to reconstruct the image in a Computer using a software. The results we achieved were very promising as we were able to obtain 3-D output with good resolutions which can be further improved in future by increasing the frequency of Ultrasonic sensor modules to 1-2 Megahertz.
-# Srial Communication Code
+# Serial Communication Code
 •	This code segment helps the imaging terminal to interact with the proposed data acquisition system to gather input data which is then transferred to the image reconstruction algorithm to further process the image. 
 •	The interaction is performed by communicating with the data acquisition system using a serial connection. The serial connection being used follows the Universal Asynchronous Receiver Transmitter (UART).
 •	Both the sides perform a virtual handshaking that help them to identify each other. The handshaking can also be implemented to using different kinds of passwords that can be authenticated by the terminals to enhance security.
